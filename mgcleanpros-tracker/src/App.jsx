@@ -1,27 +1,24 @@
-import { Routes, Route, Link } from "react-router-dom"
+import About from "./About"
 import Home from "./Home"
-import Expenses from "./Expenses"
-import Income from "./Income"
 import Nav from "./Nav"
-import './App.css'
-
-
-function App() {
-
-  return (
-    <div>
-      <Nav>
-        <Link to="/">Home</Link>
-        <Link to="/expenses">Expenses page</Link>
-        <Link to="/income">Income page</Link>
-      </Nav>
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="income" element={<Income/>}/>
-        <Route path="expenses" element={<Expenses/>}/>
-      </Routes>
-    </div>
-  )
-}
-
-export default App
+import Vans from "./Vans"
+import {Routes, Route, Link} from "react-router-dom"
+export default function App() {
+    return (
+      <div>
+        <Nav>
+            <Link to="/" className="home-link">#VANLIFE</Link>
+            <nav>
+                <Link to="/about" className="about-link">About</Link>
+                <Link to="/vans">Vans</Link>
+            </nav>
+        </Nav>
+        <Routes>
+            <Route path="/" element={<Home/>} />
+            <Route path="/about" element={<About/>} />
+            <Route path="/vans" element={<Vans/>} />
+        </Routes>
+      </div>
+    )
+  }
+  

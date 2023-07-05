@@ -1,9 +1,8 @@
 
 export default function Nav({children}) {
-    
     return (
-        <nav>
+        <div className="nav-container">
             {children}
-        </nav>
+        </div>
     )
 }
