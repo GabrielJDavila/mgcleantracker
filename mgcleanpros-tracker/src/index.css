@@ -8,11 +8,16 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
+.app {
+  height: 100vh;
+}
+
 .nav-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100vw;
+  height: 15vh;
   padding: 36px 16px;
   background-color: #FFF7ED;
 }
@@ -35,12 +40,22 @@ nav > a {
 .hero-home {
   padding: 1rem;
   text-align: center;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.46) 0%, rgba(0, 0, 0, 0.46) 100%), url("./assets/homebackground.png"), lightgray 0px -65.191px / 100% 178.109% no-repeat;
+  height: 65vh;
+  color: white;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.46) 0%, rgba(135, 133, 133, 0.46) 100%), url("./assets/homebackground.png"), rgb(93, 85, 85) 0px -65.191px / 100% 178.109%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-container {
+  margin: 5rem 1.5rem;
 }
 
 .hero-title {
   font-family: "Inter", sans-serif;
   font-weight: bold;
+  margin-bottom: 1.5rem;
 }
 
 .find-van-btn {
@@ -48,8 +63,23 @@ nav > a {
   border: none;
   color: white;
   border-radius: 6px;
-  height: 2rem;
+  height: 3rem;
   width: 300px;
   font-size: 1rem;
   font-weight: 700;
+  margin-top: 2rem;
+}
+
+footer {
+  background: black;
+  color: rgb(108, 108, 108);
+  height: 20vh;
+  display: flex;
+  align-items: center;
+}
+
+footer > p {
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
 }
