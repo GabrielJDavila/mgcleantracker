@@ -11,7 +11,7 @@ export default function App() {
             <Link to="/" className="home-link">#VANLIFE</Link>
             <nav>
                 <Link to="/about" className="about-link">About</Link>
-                <Link to="/vans">Vans</Link>
+                <Link to="/vans" className="vans-link">Vans</Link>
             </nav>
         </Nav>
         <Routes>
