@@ -60,7 +60,8 @@ a:visited {
   text-align: center;
   height: 65vh;
   color: white;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.46) 0%, rgba(135, 133, 133, 0.46) 100%), url("./assets/homebackground.png"), rgb(93, 85, 85) 0px -65.191px / 100% 178.109%;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.46) 0%, rgba(135, 133, 133, 0.46) 100%), rgb(93, 85, 85) 0px -65.191px / 100% 178.109%;
+  background-image: url("./assets/homebackground.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
