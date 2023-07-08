@@ -1,6 +1,8 @@
 
 export default function Vans() {
     return (
-        <div></div>
+        <div>
+            <h1>Vans go here</h1>
+        </div>
     )
 }
