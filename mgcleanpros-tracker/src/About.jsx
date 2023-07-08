@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 export default function About() {
     return (
       <div className="about">
-        <img src="./src/assets/roofsitter.png" className="about-img"></img>
+        <img src="./assets/roofsitter.png" className="about-img"></img>
         <div className="about-container">
           <h1 className="about-title">Don't squeeze in a sedan when you could relax in a van.</h1>
           <p className="about-p">Our mission is to enliven your road trip with the perfect travel van rental. Our vans are recertified before each trip to ensure your travel plans can go off without a hitch.
