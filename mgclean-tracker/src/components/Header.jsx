@@ -2,9 +2,10 @@ import { Link, NavLink } from "react-router-dom"
 
 export default function Nav() {
     const activeStyles = {
-        textDecoration: "underline",
-        color: "red",
-        fontWeight: "600"
+        background: "rgb(208, 68, 68)",
+        color: "white",
+        fontWeight: "600",
+        margin: ".2rem"
     }
     return (
         <header className="site-header">
