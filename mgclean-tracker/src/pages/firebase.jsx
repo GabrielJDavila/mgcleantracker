@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
-import { getDatabase, ref, set, } from "firebase/database"
+import { getDatabase, ref, set, onValue } from "firebase/database"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -20,13 +20,20 @@ const app = initializeApp(firebaseConfig)
 
 // Initialize RealtimeDatabase
 export const database = getDatabase(app)
-export const incomeInDB = ref(database, "income")
-export const expensesInDB = ref(database, "expenses")
+export const incomeInDB = ref(database, "income/")
+export const expensesInDB = ref(database, "expenses/")
 
-export function writeToDB(providerName, name, amount) {
-    set(ref(database, "providerName"), {
+export function writeToDB(providerId, name, amount) {
+    set(ref(database, "income/" + providerId), {
         name: name,
         amount: amount
     })
+}
+
+export function readToApp(pathway, setData) {
+  onValue(pathway, (snapshot) => {
+    let data = Object.entries(snapshot.val())
+    setData(data)
+  })
 }
 
