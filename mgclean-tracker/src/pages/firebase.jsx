@@ -23,10 +23,11 @@ export const database = getDatabase(app)
 export const incomeInDB = ref(database, "income/")
 export const expensesInDB = ref(database, "expenses/")
 
-export function writeToDB(providerId, name, amount) {
+export function writeToDB(providerId, name, amount, service) {
     set(ref(database, "income/" + providerId), {
         name: name,
-        amount: amount
+        amount: amount,
+        type: service
     })
 }
 

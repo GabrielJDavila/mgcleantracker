@@ -1,20 +1,27 @@
-import { database, incomeInDB, expensesInDB, writeToDB, readToApp } from './firebase.jsx'
-import { getDatabase, ref, set, onValue } from 'firebase/database'
+import { incomeInDB, readToApp, writeToDB } from './firebase.jsx'
+// import { getDatabase, ref, set, onValue } from 'firebase/database'
 import { useState, useEffect } from "react"
 
 export default function Income() {
     const [data, setData] = useState()
-    const [arrayData, setArrayData] = useState()
-
-    
-    console.log(arrayData)
 
     useEffect(() => {
         readToApp(incomeInDB, setData)
-        setArrayData(data)
     }, [])
+    // Next function to work on: getting the writeToDB set up.
+    // - check input for onChange or form for onSubmit
+    const restructedData = data ? data.map(([id, item]) => ({id, ...item})) : null
+    // Note: Do I truly need to create displayedData? Recheck work later.
+    const displayedData = restructedData ? restructedData.map(item => {
+        return (
+            <div key={item.id} className="income-instance">
+                <p className="income-provider">{item.name}</p>
+                <p className="income-service">{item.type}</p>
+                <p className="income-amount">${item.amount}</p>
+            </div>
+        )
+    }) : <div><h1>Loading...</h1></div>
     
-
     return (
         <div>
             <h1>Income</h1>
@@ -27,7 +34,7 @@ export default function Income() {
                 <button>submit</button>
             </form>
             <div className="income-instance-container">
-                
+                {displayedData}
                 {/* <div className="income-instance">
                     <p className="income-provider">provider</p>
                     <p className="income-amount">amount</p>
