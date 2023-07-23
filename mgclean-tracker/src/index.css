@@ -119,6 +119,14 @@ a:visited {
 
 /* income css */
 
+.new-income-form {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  justify-content: center;
+  margin: .5rem auto;
+}
+
 .income-instance-container,
 .expense-instance-container {
   width: 90%;
