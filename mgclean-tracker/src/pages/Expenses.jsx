@@ -1,30 +1,33 @@
 import { useState, useEffect } from "react"
-import { expenseInstance, getExpense } from "./firebase"
+import { expensesCollection, addFirebaseItem, getFirebaseItem } from "./firebase"
 
 export default function Expenses() {
     const [expenseData, setExpenseData] = useState({
-        name: "",
+        expense: "",
         amount: "",
-        date: ""
+        date: "",
+        type: ""
     })
     const [dataFromFB, setDataFromFB] = useState([])
     const [error, setError] = useState(null)
 
-    useEffect(() => {
-        async function loadData() {
-            try {
-                const data = await getExpense()
-                setDataFromFB(data)
-            } catch(err) {
-                setError(err)
-            }
+    async function loadData() {
+        try {
+            const data = await getFirebaseItem(expensesCollection)
+            setDataFromFB(data)
+        } catch(err) {
+            setError(err)
         }
+    }
+
+    useEffect(() => {
         loadData()
     }, [])
 
     function handleSubmit(e) {
         e.preventDefault()
-        expenseInstance(expenseData.expense, expenseData.amount, expenseData.date)
+        addFirebaseItem(expenseData.expense, expenseData.amount, expenseData.date, expenseData.type, expensesCollection)
+        loadData()
     }
     function handleChange(e) {
         const {name, value} = e.target
@@ -38,8 +41,9 @@ export default function Expenses() {
         return (
             <div key={item.id} className="expense-instance">
                 <p className="expense-provider">{item.name}</p>
+                <p className="expense-provider">{item.type}</p>
                 <p className="expense-service">{item.date}</p>
-                <p className="expense-amount">{item.amount}</p>
+                <p className="expense-amount">${item.amount}</p>
             </div>
         )
     })
@@ -53,6 +57,13 @@ export default function Expenses() {
                     type="text"
                     placeholder="expense"
                     value={expenseData.expense}
+                />
+                <input
+                    name="type"
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="item type"
+                    value={expenseData.type}
                 />
                 <input
                     name="amount"
@@ -72,22 +83,6 @@ export default function Expenses() {
             </form>
             <div className="expense-instance-container">
                 {dataFromFB ? displayExpenseData : <h1>Loading...</h1>}
-                {/* <div className="expense-instance">
-                    <p className="expense-provider">provider</p>
-                    <p className="expense-amount">amount</p>
-                </div>
-                <div className="expense-instance">
-                    <p className="expense-provider">provider</p>
-                    <p className="expense-amount">amount</p>
-                </div>
-                <div className="expense-instance">
-                    <p className="expense-provider">provider</p>
-                    <p className="expense-amount">amount</p>
-                </div>
-                <div className="expense-instance">
-                    <p className="expense-provider">provider</p>
-                    <p className="expense-amount">amount</p>
-                </div> */}
             </div>
         </div>
     )

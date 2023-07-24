@@ -150,12 +150,14 @@ a:visited {
 .expense-provider {
   margin-right: auto;
   margin-left: 10px;
+  font-size: .75rem;
 }
 
 .income-amount,
 .expense-amount {
   margin-left: auto;
   margin-right: 10px;
+  font-size: .75rem;
 }
 .income-service {
   font-size: .75rem;

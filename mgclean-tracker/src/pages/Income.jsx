@@ -1,30 +1,32 @@
 import { useState, useEffect } from "react"
-import { incomeInstance, getIncome } from "./firebase"
+import { incomeCollection, addFirebaseItem, getFirebaseItem } from "./firebase"
 
 export default function Income() {
     const [incomeData, setIncomeData] = useState({
         name: "",
         amount: "",
-        service: ""
+        service: "",
+        date: ""
     })
     const [dataFromFB, setDataFromFB] = useState([])
     const [error, setError] = useState(null)
+    async function loadData() {
+        try {
+            const data = await getFirebaseItem(incomeCollection)
+            setDataFromFB(data)
+        } catch(err) {
+            setError(err)
+        }
+    }
 
     useEffect(() => {
-        async function loadData() {
-            try {
-                const data = await getIncome()
-                setDataFromFB(data)
-            } catch(err) {
-                setError(err)
-            }
-        }
         loadData()
     }, [])
 
     function handleSubmit(e) {
         e.preventDefault()
-        incomeInstance(incomeData.name, incomeData.amount, incomeData.service)
+        addFirebaseItem(incomeData.name, incomeData.amount, incomeData.date, incomeData.service, incomeCollection)
+        loadData()
     }
     function handleChange(e) {
         const {name, value} = e.target
@@ -33,21 +35,13 @@ export default function Income() {
             [name]: value
         }))
     }
-
-    // useEffect(() => {
-    //     incomeInstance("dan", 200, "construction clean")
-    // }, [])
-
-    // Next function to work on: getting the writeToDB set up.
-    // - check input for onChange or form for onSubmit
-    // const restructedData = data ? data.map(([id, item]) => ({id, ...item})) : null
-    // Note: Do I truly need to create displayedData? Recheck work later.
     
     const displayedData = dataFromFB.map(item => {
         return (
             <div key={item.id} className="income-instance">
-                <p className="income-provider">{item.payee}</p>
+                <p className="income-provider">{item.name}</p>
                 <p className="income-service">{item.type}</p>
+                <p className="income-service">{item.date}</p>
                 <p className="income-amount">${item.amount}</p>
             </div>
         )
@@ -65,6 +59,13 @@ export default function Income() {
                     value={incomeData.name}
                 />
                 <input
+                    name="service"
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="service"
+                    value={incomeData.service}
+                />
+                <input
                     name="amount"
                     onChange={handleChange}
                     type="text"
@@ -72,32 +73,16 @@ export default function Income() {
                     value={incomeData.amount}
                 />
                 <input
-                    name="service"
+                    name="date"
                     onChange={handleChange}
                     type="text"
-                    placeholder="service"
-                    value={incomeData.service}
+                    placeholder="date"
+                    value={incomeData.date}
                 />
                 <button>submit</button>
             </form>
             <div className="income-instance-container">
                 {dataFromFB ? displayedData : <h1>Loading...</h1>}
-                {/* <div className="income-instance">
-                    <p className="income-provider">provider</p>
-                    <p className="income-amount">amount</p>
-                </div>
-                <div className="income-instance">
-                    <p className="income-provider">provider</p>
-                    <p className="income-amount">amount</p>
-                </div>
-                <div className="income-instance">
-                    <p className="income-provider">provider</p>
-                    <p className="income-amount">amount</p>
-                </div>
-                <div className="income-instance">
-                    <p className="income-provider">provider</p>
-                    <p className="income-amount">amount</p>
-                </div> */}
             </div>
         </div>
     )

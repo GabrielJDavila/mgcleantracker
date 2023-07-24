@@ -1,16 +1,37 @@
 import { Link } from "react-router-dom"
 import {useState, useEffect} from "react"
+import { getFirebaseItem, expensesCollection, incomeCollection } from "./firebase"
 
 export default function Dashboard() {
     const [income, setIncome] = useState(3543)
     const [expenses, setExpenses] = useState(1322)
+    const [expensesDataFromFB, setExpensesDataFromFB] = useState([])
+    const [incomeDataFromFB, setIncomeDataFromFB] = useState([])
     const [profit, setProfit] = useState(0)
+    const [error, setError] = useState(null)
 
     const trueProfit = income - expenses
-    console.log(profit)
+    console.log(expensesDataFromFB, incomeDataFromFB)
+    
+
+    async function loadFBData() {
+        try {
+            const expensesData = await getFirebaseItem(expensesCollection)
+            const incomeData = await getFirebaseItem(incomeCollection)
+            setExpensesDataFromFB(expensesData)
+            setIncomeDataFromFB(incomeData)
+        } catch(err) {
+            setError(err)
+        }
+    }
+
+    // function addData() {
+        
+    // }
 
     useEffect(() => {
         setProfit(trueProfit)
+        loadFBData()
     }, [])
 
     return (

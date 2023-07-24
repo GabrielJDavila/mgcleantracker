@@ -23,63 +23,25 @@ export const database = getFirestore(app)
 export const incomeCollection = collection(database, "income")
 export const expensesCollection = collection(database, "expenses")
 
-export async function incomeInstance(payee, amount, service) {
+// firebase instance
+export async function addFirebaseItem(name, amount, date, type, collectionType) {
   try {
-    const docRef = await addDoc(incomeCollection, {
-      payee: payee,
+    const docRef = await addDoc(collectionType, {
+      name: name,
       amount: amount,
-      type: service
+      date: date,
+      type: type
     })
-    console.log("Document written with ID: ", docRef.id)
   } catch(e) {
     console.error("Error adding document: ", e)
   }
 }
-export async function getIncome() {
-  const snapshot = await getDocs(incomeCollection)
-  const income = snapshot.docs.map(doc => ({
+export async function getFirebaseItem(collectionType) {
+  const snapshot = await getDocs(collectionType)
+  const collections = snapshot.docs.map(doc => ({
     ...doc.data(),
     id: doc.id
   }))
-  return income
+  return collections
 }
-
-export async function expenseInstance(expenseName, amount, date) {
-  try {
-    const docRef = await addDoc(expensesCollection, {
-      name: expenseName,
-      amount: amount,
-      date: date
-    })
-    console.log("Document written with ID: ", docRef.id)
-  } catch(e) {
-    console.error("Error adding document: ", e)
-  }
-}
-export async function getExpense() {
-  const snapshot = await getDocs(expensesCollection)
-  const expense = snapshot.docs.map(doc => ({
-    ...doc.data(),
-    id: doc.id
-  }))
-  return expense
-}
-
-// export const incomeInDB = ref(database, "income/")
-// export const expensesInDB = ref(database, "expenses/")
-
-// export function writeToDB(providerId, name, amount, service) {
-//     set(ref(database, "income/" + providerId), {
-//         name: name,
-//         amount: amount,
-//         type: service
-//     })
-// }
-
-// export function readToApp(pathway, setData) {
-//   onValue(pathway, (snapshot) => {
-//     let data = Object.entries(snapshot.val())
-//     setData(data)
-//   })
-// }
 
