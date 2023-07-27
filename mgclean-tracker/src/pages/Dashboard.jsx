@@ -3,16 +3,13 @@ import {useState, useEffect} from "react"
 import { getFirebaseItem, expensesCollection, incomeCollection } from "./firebase"
 
 export default function Dashboard() {
-    const [income, setIncome] = useState(3543)
-    const [expenses, setExpenses] = useState(1322)
+    const [income, setIncome] = useState(0)
+    const [expenses, setExpenses] = useState(0)
     const [expensesDataFromFB, setExpensesDataFromFB] = useState([])
     const [incomeDataFromFB, setIncomeDataFromFB] = useState([])
     const [profit, setProfit] = useState(0)
     const [error, setError] = useState(null)
-
-    const trueProfit = income - expenses
-    console.log(expensesDataFromFB, incomeDataFromFB)
-    
+    const [isLoading, setIsLoading] = useState(true)
 
     async function loadFBData() {
         try {
@@ -20,20 +17,74 @@ export default function Dashboard() {
             const incomeData = await getFirebaseItem(incomeCollection)
             setExpensesDataFromFB(expensesData)
             setIncomeDataFromFB(incomeData)
+            
         } catch(err) {
             setError(err)
+            setIsLoading(prev => !prev)
         }
     }
 
-    // function addData() {
-        
+
+    // function filterExpensesData() {
+    //     const filteredExpensesData = expensesDataFromFB.filter(item => item.amount).map(item => ({
+    //         ...item,
+    //         amount: parseFloat(item.amount.replace('$', ''))
+    //     }))
+
+    //     const totalExpenseAmount = filteredExpensesData.reduce((total, item) => total + item.amount, 0)
+    //     setExpenses(totalExpenseAmount)
+    // }
+
+    // function filterIncomeData() {
+    //     const filteredIncomeData = incomeDataFromFB.filter(item => item.amount).map(item => ({
+    //         ...item,
+    //         amount: parseFloat(item.amount.replace('$', ''))
+    //     }))
+
+    //     const totalIncomeAmount = filteredIncomeData.reduce((total, item) => total + item.amount, 0)
+    //     setIncome(totalIncomeAmount)
     // }
 
     useEffect(() => {
-        setProfit(trueProfit)
         loadFBData()
     }, [])
 
+    useEffect(() => {
+        const filteredExpensesData = expensesDataFromFB.filter(item => item.amount).map(item => ({
+            ...item,
+            amount: parseFloat(item.amount.replace('$', ''))
+        }))
+        const totalExpenseAmount = filteredExpensesData.reduce((total, item) => total + item.amount, 0)
+        setExpenses(totalExpenseAmount)
+
+        const filteredIncomeData = incomeDataFromFB.filter(item => item.amount).map(item => ({
+            ...item,
+            amount: parseFloat(item.amount.replace('$', ''))
+        }))
+        const totalIncomeAmount = filteredIncomeData.reduce((total, item) => total + item.amount, 0)
+        setIncome(totalIncomeAmount)
+
+        setProfit(totalIncomeAmount - totalExpenseAmount)
+        setIsLoading(false)
+        
+    }, [expensesDataFromFB, incomeDataFromFB])
+
+    // useEffect(() => {
+    //     filterExpensesData()
+    // }, [expensesDataFromFB])
+
+    // useEffect(() => {
+    //     filterIncomeData()
+    // }, [incomeDataFromFB])
+
+    // useEffect(() => {
+        
+    //     setProfit(income - expenses)
+    // }, [incomeDataFromFB])
+
+    if (isLoading) {
+        return <div>Loading...</div>
+    }
     return (
         <div className="dashboard">
 
@@ -50,7 +101,7 @@ export default function Dashboard() {
             </div>
 
             <div className="profits-preview">
-                <h3>Total Profits(pre-tax): ${trueProfit}</h3>
+                <h3>Total Profits(pre-tax): ${profit}</h3>
             </div>
         </div>
     )

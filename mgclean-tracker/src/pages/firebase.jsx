@@ -1,7 +1,7 @@
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
-import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore"
+import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "firebase/firestore"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -37,7 +37,8 @@ export async function addFirebaseItem(name, amount, date, type, collectionType) 
   }
 }
 export async function getFirebaseItem(collectionType) {
-  const snapshot = await getDocs(collectionType)
+  const q = query(collectionType, orderBy("date"))
+  const snapshot = await getDocs(q)
   const collections = snapshot.docs.map(doc => ({
     ...doc.data(),
     id: doc.id
@@ -45,3 +46,10 @@ export async function getFirebaseItem(collectionType) {
   return collections
 }
 
+// export async function dateChecker(collectionType) {
+//   const snapshot = await getDocs(collectionType)
+//   const collections = snapshot.docs.map(doc => ({
+//     id: doc.id,
+//     date: new Date(doc.data().date)
+//   }))
+// }

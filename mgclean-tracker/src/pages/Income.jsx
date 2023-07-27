@@ -10,6 +10,7 @@ export default function Income() {
     })
     const [dataFromFB, setDataFromFB] = useState([])
     const [error, setError] = useState(null)
+    
     async function loadData() {
         try {
             const data = await getFirebaseItem(incomeCollection)
@@ -18,6 +19,15 @@ export default function Income() {
             setError(err)
         }
     }
+
+    // async function dates() {
+    //     try {
+    //         const dateChecks = await dateChecker(incomeCollection)
+    //         setDates(dateChecks)
+    //     } catch(err) {
+    //         setError(err)
+    //     }
+    // }
 
     useEffect(() => {
         loadData()
@@ -75,7 +85,7 @@ export default function Income() {
                 <input
                     name="date"
                     onChange={handleChange}
-                    type="text"
+                    type="date"
                     placeholder="date"
                     value={incomeData.date}
                 />
