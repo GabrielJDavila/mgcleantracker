@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { expensesCollection, addFirebaseItem, getFirebaseItem } from "./firebase"
+import { expensesCollection, addFirebaseItem, getFirebaseItem, deleteItem } from "./firebase"
 
 export default function Expenses() {
     const [expenseData, setExpenseData] = useState({
@@ -36,6 +36,12 @@ export default function Expenses() {
             [name]: value
         }))
     }
+    function handleClick(e) {
+        const itemId = e.target.id
+        deleteItem(expensesCollection, itemId)
+        loadData()
+    }
+
 
     const displayExpenseData = dataFromFB.map(item => {
         return (
@@ -44,6 +50,7 @@ export default function Expenses() {
                 <p className="expense-provider">{item.type}</p>
                 <p className="expense-service">{item.date}</p>
                 <p className="expense-amount">${item.amount}</p>
+                <button id={item.id} className="delete-btn" onClick={handleClick}>remove</button>
             </div>
         )
     })

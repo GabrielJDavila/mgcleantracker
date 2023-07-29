@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
-import { incomeCollection, addFirebaseItem, getFirebaseItem } from "./firebase"
+import { incomeCollection, addFirebaseItem, getFirebaseItem, deleteItem } from "./firebase"
+import { doc, deleteDoc } from "firebase/firestore"
 
 export default function Income() {
     const [incomeData, setIncomeData] = useState({
@@ -20,15 +21,6 @@ export default function Income() {
         }
     }
 
-    // async function dates() {
-    //     try {
-    //         const dateChecks = await dateChecker(incomeCollection)
-    //         setDates(dateChecks)
-    //     } catch(err) {
-    //         setError(err)
-    //     }
-    // }
-
     useEffect(() => {
         loadData()
     }, [])
@@ -45,7 +37,12 @@ export default function Income() {
             [name]: value
         }))
     }
-    
+    function handleClick(e) {
+        const itemId = e.target.id
+        deleteItem(incomeCollection, itemId)
+        loadData()
+    }
+
     const displayedData = dataFromFB.map(item => {
         return (
             <div key={item.id} className="income-instance">
@@ -53,6 +50,7 @@ export default function Income() {
                 <p className="income-service">{item.type}</p>
                 <p className="income-service">{item.date}</p>
                 <p className="income-amount">${item.amount}</p>
+                <button id={item.id} className="delete-btn" onClick={handleClick}>remove</button>
             </div>
         )
     })
