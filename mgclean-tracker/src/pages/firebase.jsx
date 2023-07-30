@@ -18,21 +18,32 @@ const firebaseConfig = {
 
 // Initialize app and other references
 const app = initializeApp(firebaseConfig)
-const auth = getAuth(app)
+export const auth = getAuth(app)
 export const database = getFirestore(app)
 export const incomeCollection = collection(database, "income")
 export const expensesCollection = collection(database, "expenses")
 
 // create an instance of authentication
-export function signIn(email, password) {
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+export async function signIn(email, password) {
+  try {
+    const userCred = await signInWithEmailAndPassword(auth, email, password)
+    console.log(userCred)
+  }
+  catch(error) {
+    console.log(error)
+    alert(error)
+  }
+  
 }
+
+// const monitorAuthState = async () => {
+//   onAuthStateChanged(auth, user => {
+//     if(user) {
+//       console.log(user)
+//     }
+//   })
+// }
+// monitorAuthState()
 
 // add to firebase instance
 export async function addFirebaseItem(name, amount, date, type, collectionType) {
