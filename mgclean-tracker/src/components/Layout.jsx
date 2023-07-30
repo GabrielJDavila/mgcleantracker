@@ -21,29 +21,9 @@ export default function Layout() {
             })
         }
         monitorAuthState()
-        // async function monitorAuthState() {
-        //     try {
-        //       const checkAuth = onAuthStateChanged(auth, user => {
-        //         if(user) {
-        //           console.log(user)
-        //           setIsLoggedIn(!!user)
-        //         }
-        //       })
-        //       return
-        //     }
-        //     catch(error) {
-        //         console.log(error)
-        //     }
-            
-        // }
-
-        // const unsubscribe = onAuthStateChanged((user) => {
-        //     setIsLoggedIn(!!user)
-        // })
-        // return () => unsubscribe()
     }, [])
 
-    function handleClick(e) {
+    function handleSignIn(e) {
         e.preventDefault()
         signIn(loginInfo.email, loginInfo.password)
     }
@@ -59,30 +39,33 @@ export default function Layout() {
     if(!isLoggedIn) {
         return (
             <div>
-                <form  className="login-form">
+                <form onSubmit={handleSignIn} className="login-form">
                     <h1>Login</h1>
-                    <label> Email:
-                    <input
-                        name="email"
-                        onChange={handleChange}
-                        type="email"
-                        placeholder="example@gmail.com"
-                        value={loginInfo.email}
-                        required
-                    />
-                    </label>
-                    <label> Password:
-                    <input
-                        name="password"
-                        onChange={handleChange}
-                        type="password"
-                        placeholder="*****"
-                        value={loginInfo.password}
-                        required
-                    />
-                    </label>
+                    <div className="logininput-container">
+                        <label>Email:</label>
+                        <input
+                            name="email"
+                            onChange={handleChange}
+                            type="email"
+                            placeholder="example@gmail.com"
+                            value={loginInfo.email}
+                            required
+                        />
+                    </div>
+                    
+                    <div className="logininput-container">
+                        <label>Password:</label>
+                        <input
+                            name="password"
+                            onChange={handleChange}
+                            type="password"
+                            placeholder="*****"
+                            value={loginInfo.password}
+                            required
+                        />
+                    </div>
+                    <button className="login-btn">submit</button>
                 </form>
-                <button onClick={handleClick}>submit</button>
             </div>
         )
     }

@@ -1,7 +1,7 @@
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { getFirestore, collection, addDoc, doc, deleteDoc, getDocs, query, orderBy } from "firebase/firestore"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -36,14 +36,10 @@ export async function signIn(email, password) {
   
 }
 
-// const monitorAuthState = async () => {
-//   onAuthStateChanged(auth, user => {
-//     if(user) {
-//       console.log(user)
-//     }
-//   })
-// }
-// monitorAuthState()
+// sign out function
+export const logout = async () => {
+  await signOut(auth)
+}
 
 // add to firebase instance
 export async function addFirebaseItem(name, amount, date, type, collectionType) {

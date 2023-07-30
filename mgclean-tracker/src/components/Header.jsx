@@ -1,4 +1,5 @@
-import { Link, NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom"
+import { logout } from "../pages/firebase"
 
 export default function Nav() {
     const activeStyles = {
@@ -7,9 +8,23 @@ export default function Nav() {
         fontWeight: "600",
         margin: ".2rem"
     }
+
+    function signOutUser() {
+        console.log('works')
+        logout()
+        window.location.reload()
+    }
+
     return (
         <header className="site-header">
-            <h1 className="site-title">M&G Clean Pros Income & Expense Tracker</h1>
+            <div className="title-signout-container">
+                <h2 className="site-title">M&G Clean Pros</h2>
+                <div onClick={signOutUser} className="signout-container">
+                    <i className="fa-solid fa-right-from-bracket"></i>
+                    {/* <p className="signout-text">Sign out</p> */}
+                </div>
+            </div>
+            
             <nav>
                 <NavLink
                     to="/"
