@@ -3,6 +3,7 @@ import Dashboard from "./pages/Dashboard"
 import Income from "./pages/Income"
 import Expenses from "./pages/Expenses"
 import Layout from "./components/Layout"
+
 function App() {
 
   return (

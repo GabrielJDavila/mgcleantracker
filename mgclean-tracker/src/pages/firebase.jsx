@@ -1,6 +1,7 @@
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 import { getFirestore, collection, addDoc, doc, deleteDoc, getDocs, query, orderBy } from "firebase/firestore"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -15,15 +16,25 @@ const firebaseConfig = {
   appId: "1:887548477192:web:dd4fa36cb9a7b6ee3276bd"
 }
 
-// Initialize Firebase
+// Initialize app and other references
 const app = initializeApp(firebaseConfig)
-
-// Initialize database
+const auth = getAuth(app)
 export const database = getFirestore(app)
 export const incomeCollection = collection(database, "income")
 export const expensesCollection = collection(database, "expenses")
 
-// firebase instance
+// create an instance of authentication
+export function signIn(email, password) {
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+// add to firebase instance
 export async function addFirebaseItem(name, amount, date, type, collectionType) {
   try {
     const docRef = await addDoc(collectionType, {
@@ -36,6 +47,8 @@ export async function addFirebaseItem(name, amount, date, type, collectionType) 
     console.error("Error adding document: ", e)
   }
 }
+
+// get item from firebase
 export async function getFirebaseItem(collectionType) {
   const q = query(collectionType, orderBy("date"))
   const snapshot = await getDocs(q)
@@ -46,6 +59,7 @@ export async function getFirebaseItem(collectionType) {
   return collections
 }
 
+// delete item from firebase
 export async function deleteItem(collectionType, itemId) {
   try {
     const itemRef = doc(collectionType, itemId)

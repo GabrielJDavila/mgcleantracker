@@ -24,27 +24,6 @@ export default function Dashboard() {
         }
     }
 
-
-    // function filterExpensesData() {
-    //     const filteredExpensesData = expensesDataFromFB.filter(item => item.amount).map(item => ({
-    //         ...item,
-    //         amount: parseFloat(item.amount.replace('$', ''))
-    //     }))
-
-    //     const totalExpenseAmount = filteredExpensesData.reduce((total, item) => total + item.amount, 0)
-    //     setExpenses(totalExpenseAmount)
-    // }
-
-    // function filterIncomeData() {
-    //     const filteredIncomeData = incomeDataFromFB.filter(item => item.amount).map(item => ({
-    //         ...item,
-    //         amount: parseFloat(item.amount.replace('$', ''))
-    //     }))
-
-    //     const totalIncomeAmount = filteredIncomeData.reduce((total, item) => total + item.amount, 0)
-    //     setIncome(totalIncomeAmount)
-    // }
-
     useEffect(() => {
         loadFBData()
     }, [])
@@ -69,18 +48,6 @@ export default function Dashboard() {
         
     }, [expensesDataFromFB, incomeDataFromFB])
 
-    // useEffect(() => {
-    //     filterExpensesData()
-    // }, [expensesDataFromFB])
-
-    // useEffect(() => {
-    //     filterIncomeData()
-    // }, [incomeDataFromFB])
-
-    // useEffect(() => {
-        
-    //     setProfit(income - expenses)
-    // }, [incomeDataFromFB])
 
     if (isLoading) {
         return <div>Loading...</div>
