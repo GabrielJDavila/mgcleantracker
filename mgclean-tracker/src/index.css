@@ -189,19 +189,33 @@ a:visited {
 
 .income-provider,
 .expense-provider {
-  margin-right: auto;
-  margin-left: 10px;
-  font-size: .75rem;
+  margin: 5px auto 0 10px;
+  font-size: 1rem;
+  text-align: left;
 }
 
 .income-amount,
 .expense-amount {
   margin-left: auto;
-  margin-right: 10px;
-  font-size: .75rem;
+  margin-right: auto;
+  font-size: 1rem;
 }
-.income-service {
+.income-service,
+.expense-type {
   font-size: .75rem;
   width: 5rem;
+  margin: 0 auto 0 10px;
+  text-align: left;
+}
 
+.income-date,
+.expense-date {
+  font-size: .75rem;
+  margin: 0 auto 5px 10px;
+  text-align: left;
+}
+
+.fa-trash {
+  color: #ffffff;
+  margin-right: 15px;
 }

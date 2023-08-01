@@ -46,11 +46,13 @@ export default function Expenses() {
     const displayExpenseData = dataFromFB.map(item => {
         return (
             <div key={item.id} className="expense-instance">
-                <p className="expense-provider">{item.name}</p>
-                <p className="expense-provider">{item.type}</p>
-                <p className="expense-service">{item.date}</p>
+                <div>
+                    <p className="expense-provider">{item.name}</p>
+                    <p className="expense-type">{item.type}</p>
+                    <p className="expense-date">{item.date}</p>
+                </div>
                 <p className="expense-amount">${item.amount}</p>
-                <button id={item.id} className="delete-btn" onClick={handleClick}>remove</button>
+                <i id={item.id}  onClick={handleClick} className="fa-solid fa-trash"></i>
             </div>
         )
     })
@@ -64,6 +66,7 @@ export default function Expenses() {
                     type="text"
                     placeholder="expense"
                     value={expenseData.expense}
+                    className="input-item"
                 />
                 <input
                     name="type"
@@ -71,6 +74,7 @@ export default function Expenses() {
                     type="text"
                     placeholder="item type"
                     value={expenseData.type}
+                    className="input-item"
                 />
                 <input
                     name="amount"
@@ -78,6 +82,7 @@ export default function Expenses() {
                     type="text"
                     placeholder="expense amount"
                     value={expenseData.amount}
+                    className="input-item"
                 />
                 <input
                     name="date"
@@ -85,6 +90,7 @@ export default function Expenses() {
                     type="text"
                     placeholder="date"
                     value={expenseData.date}
+                    className="input-item"
                 />
                 <button>submit</button>
             </form>

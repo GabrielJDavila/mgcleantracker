@@ -46,11 +46,13 @@ export default function Income() {
     const displayedData = dataFromFB.map(item => {
         return (
             <div key={item.id} className="income-instance">
-                <p className="income-provider">{item.name}</p>
-                <p className="income-service">{item.type}</p>
-                <p className="income-service">{item.date}</p>
+                <div>
+                    <p className="income-provider">{item.name}</p>
+                    <p className="income-service">{item.type}</p>
+                    <p className="income-date">{item.date}</p>
+                </div>
                 <p className="income-amount">${item.amount}</p>
-                <button id={item.id} className="delete-btn" onClick={handleClick}>remove</button>
+                <i id={item.id} onClick={handleClick} className="fa-solid fa-trash"></i>
             </div>
         )
     })
@@ -65,6 +67,7 @@ export default function Income() {
                     type="text"
                     placeholder="payee"
                     value={incomeData.name}
+                    className="input-item"
                 />
                 <input
                     name="service"
@@ -72,6 +75,7 @@ export default function Income() {
                     type="text"
                     placeholder="service"
                     value={incomeData.service}
+                    className="input-item"
                 />
                 <input
                     name="amount"
@@ -79,6 +83,7 @@ export default function Income() {
                     type="text"
                     placeholder="new income"
                     value={incomeData.amount}
+                    className="input-item"
                 />
                 <input
                     name="date"
@@ -86,6 +91,7 @@ export default function Income() {
                     type="date"
                     placeholder="date"
                     value={incomeData.date}
+                    className="input-item"
                 />
                 <button>submit</button>
             </form>
