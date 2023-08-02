@@ -60,7 +60,7 @@ export default function Income() {
     return (
         <div>
             <h1>Income</h1>
-            <form onSubmit={handleSubmit} className="new-income-form">
+            <form onSubmit={handleSubmit} className="new-form">
                 <input
                     name="name"
                     onChange={handleChange}
@@ -68,6 +68,7 @@ export default function Income() {
                     placeholder="payee"
                     value={incomeData.name}
                     className="input-item"
+                    required
                 />
                 <input
                     name="service"
@@ -76,6 +77,7 @@ export default function Income() {
                     placeholder="service"
                     value={incomeData.service}
                     className="input-item"
+                    required
                 />
                 <input
                     name="amount"
@@ -84,6 +86,7 @@ export default function Income() {
                     placeholder="new income"
                     value={incomeData.amount}
                     className="input-item"
+                    required
                 />
                 <input
                     name="date"
@@ -92,8 +95,9 @@ export default function Income() {
                     placeholder="date"
                     value={incomeData.date}
                     className="input-item"
+                    required
                 />
-                <button>submit</button>
+                <button className="submit-btn">submit</button>
             </form>
             <div className="income-instance-container">
                 {dataFromFB ? displayedData : <h1>Loading...</h1>}

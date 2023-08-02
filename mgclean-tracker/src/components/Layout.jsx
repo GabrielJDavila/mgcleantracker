@@ -38,9 +38,10 @@ export default function Layout() {
 
     if(!isLoggedIn) {
         return (
-            <div>
+            <div className="login-background">
+                <h1 className="app-title">M&G Clean Pros Income & Expense Tracker</h1>
                 <form onSubmit={handleSignIn} className="login-form">
-                    <h1>Login</h1>
+                    <h2>Login</h2>
                     <div className="logininput-container">
                         <label>Email:</label>
                         <input
@@ -49,6 +50,7 @@ export default function Layout() {
                             type="email"
                             placeholder="example@gmail.com"
                             value={loginInfo.email}
+                            className="login-item"
                             required
                         />
                     </div>
@@ -61,6 +63,7 @@ export default function Layout() {
                             type="password"
                             placeholder="*****"
                             value={loginInfo.password}
+                            className="login-item"
                             required
                         />
                     </div>

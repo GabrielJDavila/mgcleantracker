@@ -59,7 +59,7 @@ export default function Expenses() {
     return (
         <div>
             <h1>Expenses</h1>
-            <form onSubmit={handleSubmit} className="new-expense-form">
+            <form onSubmit={handleSubmit} className="new-form">
                 <input
                     name="expense"
                     onChange={handleChange}
@@ -67,6 +67,7 @@ export default function Expenses() {
                     placeholder="expense"
                     value={expenseData.expense}
                     className="input-item"
+                    required
                 />
                 <input
                     name="type"
@@ -75,6 +76,7 @@ export default function Expenses() {
                     placeholder="item type"
                     value={expenseData.type}
                     className="input-item"
+                    required
                 />
                 <input
                     name="amount"
@@ -83,16 +85,18 @@ export default function Expenses() {
                     placeholder="expense amount"
                     value={expenseData.amount}
                     className="input-item"
+                    required
                 />
                 <input
                     name="date"
                     onChange={handleChange}
-                    type="text"
+                    type="date"
                     placeholder="date"
                     value={expenseData.date}
                     className="input-item"
+                    required
                 />
-                <button>submit</button>
+                <button className="submit-btn">submit</button>
             </form>
             <div className="expense-instance-container">
                 {dataFromFB ? displayExpenseData : <h1>Loading...</h1>}
