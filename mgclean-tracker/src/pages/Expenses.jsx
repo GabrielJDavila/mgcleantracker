@@ -14,7 +14,8 @@ export default function Expenses() {
     async function loadData() {
         try {
             const data = await getFirebaseItem(expensesCollection)
-            setDataFromFB(data)
+            const sortedData = data.sort((a, b) => b.date.localeCompare(a.date))
+            setDataFromFB(sortedData)
         } catch(err) {
             setError(err)
         }
