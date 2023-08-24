@@ -1,7 +1,3 @@
-# mgcleantracker
-
-# Table of contents
-
 # Overview
 Income and expenses tracker for a small cleaning business. User can track individual income and expense instances. There also is a dashboard that allows users to see a "snapshot" of total income and expenses, and profits (income minus expenses).
 
