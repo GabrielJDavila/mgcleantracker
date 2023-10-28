@@ -77,6 +77,7 @@ body {
   font-size: 1rem;
   font-weight: bold;
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 .login-btn:hover {
@@ -101,6 +102,7 @@ body {
 
 .fa-right-from-bracket {
   font-size: 25px;
+  cursor: pointer;
 }
 
 .signout-text {
@@ -242,6 +244,7 @@ a:visited {
   font-size: 1rem;
   font-weight: bold;
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 .submit-btn:hover {
@@ -299,6 +302,7 @@ a:visited {
 .fa-trash {
   color: #ffffff;
   margin-right: 15px;
+  cursor: pointer;
 }
 
 footer {
